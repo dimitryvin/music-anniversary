@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+
+import Spotify from '../../api/spotify'
 import logo from '../../static/logo.svg'
 import './style.css'
 
