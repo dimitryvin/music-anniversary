@@ -2,22 +2,25 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import {
   BrowserRouter as Router,
-  Route,
-  Redirect
+  Route
 } from 'react-router-dom'
 
+import Spotify from './api/spotify'
 import './index.css'
 import App from './components/App'
+import Index from './components/Index'
 import registerServiceWorker from './registerServiceWorker'
 
-const Index = () => (
+const IndexRouter = () => (
   <Router>
-    <div>
-      <Route exact path="/" component={ App } />
-      <Route path="/auth" component={ () => { window.location = `https://accounts.spotify.com/authorize?response_type=code&client_id=${process.env.REACT_APP_SPOTIFY_CLIENT_ID}&scope=${encodeURIComponent('user-library-read')}&redirect_uri=${encodeURIComponent('http://localhost:3000')}` } } />
-    </div>
+    <App>
+      <Route path="/" component={Index} />
+      <Route path="/auth" component={() => {
+        window.location = Spotify.createAuthorizeURL(['user-library-read', 'user-read-private', 'user-read-email'], 'auth')
+      }} />
+    </App>
   </Router>
 )
 
-ReactDOM.render(<Index />, document.getElementById('root'))
+ReactDOM.render(<IndexRouter />, document.getElementById('root'))
 registerServiceWorker()

@@ -1,6 +1,8 @@
-import Spotify from 'node-spotify-api'
-
+import Spotify from 'spotify-web-api-node'
+require('dotenv').config()
+// credentials are optionale
 export default new Spotify({
-    id: process.env.REACT_APP_SPOTIFY_CLIENT_ID,
-    secret: process.env.REACT_APP_SPOTIFY_CLIENT_SECRET
+  clientId: process.env.REACT_APP_SPOTIFY_CLIENT_ID,
+  clientSecret: process.env.REACT_APP_SPOTIFY_CLIENT_SECRET,
+  redirectUri: 'http://localhost:3000/callback'
 })
