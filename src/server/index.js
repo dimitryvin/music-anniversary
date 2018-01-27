@@ -15,12 +15,12 @@ app.get('/getAuth', (req, res) => {
 
   res.setHeader('Content-Type', 'application/json')
 
-  Spotify.clientCredentialsGrant(req.query.code)
+  Spotify.authorizationCodeGrant(req.query.code)
     .then(data => {
       console.log('The token expires in ' + data.body['expires_in']);
       console.log('The access token is ' + data.body['access_token']);
       console.log('The refresh token is ' + data.body['refresh_token']);
-
+      console.log(data.body)
       // Set the access token on the API object to use it in later calls
       Spotify.setAccessToken(data.body['access_token']);
       Spotify.setRefreshToken(data.body['refresh_token']);

@@ -17,6 +17,7 @@ const IndexRouter = () => (
       <Route path="/" component={Index} />
       <Route path="/auth" component={() => {
         window.location = Spotify.createAuthorizeURL(['user-library-read', 'user-read-private', 'user-read-email'], 'auth')
+        return <div />
       }} />
     </App>
   </Router>
