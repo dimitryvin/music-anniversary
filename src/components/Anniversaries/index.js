@@ -63,13 +63,13 @@ export default class Anniversaries extends React.Component {
                 .then(chunks => {
                   albums = chunks.reduce((detailedAlbums, chunk) => { return [...chunk.body.albums, ...detailedAlbums] }, [])
                   resolve(albums)
-                  console.log('Done!');
+                  console.log('Done!')
                 }).catch(error => {
                   reject(error)
                 })
             }
           }, err => {
-            console.log('Something went wrong!', err);
+            console.log('Something went wrong!', err)
           });
       }
 
@@ -92,7 +92,7 @@ export default class Anniversaries extends React.Component {
 
     albums.forEach(album => {
       let dateComponents = album.release_date.split('-')
-      let key = groupings.map(grouping => `${grouping}:${dateComponents[groupingIndexes[grouping]]}`)
+      let key = groupings.map(grouping => `${grouping}:${dateComponents[groupingIndexes[grouping]]}`).join('')
       if (!groups[key]) {
         groups[key] = []
       }
@@ -102,27 +102,57 @@ export default class Anniversaries extends React.Component {
     return groups
   }
 
+  anniversariesToday() {
+    let date = new Date()
+    let day = date.getDate() // 1-31
+    let month = date.getMonth() + 1 // 1-12
+
+    if (day < 10) day = '0' + day
+    if (month < 10) month = '0' + month
+
+    return this.albumsGroupedBy(['month', 'day'])[`month:${month}day:${day}`] || []
+  }
+
+  anniversariesThisMonth() {
+    let date = new Date()
+    let month = date.getMonth() + 1 // 1-12
+
+    if (month < 10) month = '0' + month
+
+    return this.albumsGroupedBy(['month'])[`month:${month}`] || []
+  }
+
   render() {
-    let albums = this.albumsGroupedBy(['year', 'month'])
+    const albumsToday = this.anniversariesToday()
+    const albumsThisMonth = this.anniversariesThisMonth()
 
     return (
       <div>
+        <h1>Anniversaries Today</h1>
         {
-          Object.keys(albumsByYear).map(year => {
-            return (
-              <div>
-                <h4>{ year }</h4>
-                { 
-                  albumsByYear[year].map(album => <div style={{ display: 'inline-block' }}>
-                  <Image key={album.id} alt={album.name} key={album.id} src={album.images[1].url} />
-                  <div>{ album.release_date + ' - ' + album.release_date_precision }</div>
-                </div>)
-                }
-              </div>
-            )
-          })
+          albumsToday.length > 0 ? albumsToday.map(album => <Album album={ album } />) : <div>No anniversaries today!</div>
+        }
+        <h1>Anniversaries this Month</h1>
+        {
+          albumsThisMonth.length > 0 ? albumsThisMonth.map(album => <Album album={ album } />) : <div>No anniversaries this month!</div>
         }
       </div>
     )
   }
+}
+
+const Album = props => {
+  let album = props.album
+
+  let date = new Date()
+  let year = date.getFullYear()
+  let releaseYear = parseInt(album.release_date.split('-')[0], 10)
+  let age = year - releaseYear
+
+  return (
+    <div key={album.id} style={{ display: 'inline-block' }}>
+      <Image alt={album.name} key={album.id} src={album.images[1].url} />
+      <div>{ age } year{ age > 1 ? 's' : '' } old</div>
+    </div>
+  )
 }
