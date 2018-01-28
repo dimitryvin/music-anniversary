@@ -63,7 +63,7 @@ export default class Index extends React.Component {
         <img style={styles.backgroundImage} src={cake} />
         <div style={styles.prompt}>
           <div style={styles.header}>Welcome to Music Anniversary!</div>
-          <div style={styles.desc}>This app is used to see albums/singles that have hit their anniversary date.</div>
+          <div style={styles.desc}>See the upcoming anniversary date for music that you listen to on Spotify.</div>
           <Link style={styles.button} to="/auth">Login to Spotify</Link>
         </div>
         <AlbumMatrix style={styles.albumMatrix} />
