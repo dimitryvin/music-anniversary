@@ -2,6 +2,7 @@
   "name": "spotify-music-anniversary",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://musicanniversary.com",
   "dependencies": {
     "babel-cli": "^6.26.0",
     "classnames": "^2.2.5",
