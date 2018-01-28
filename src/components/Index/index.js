@@ -16,12 +16,14 @@ export default class Index extends React.Component {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        margin: '0 20px'
+        margin: '0 100px'
       },
       backgroundImage: {
         position: 'absolute',
-        top: '-60%',
-        left: '-50%',
+        top: '-20%',
+        left: '-20%',
+        width: '50%',
+        display: 'block',
         opacity: 0.2,
         zIndex: -1
       },
