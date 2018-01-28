@@ -5,6 +5,8 @@ import Spotify from '../../api/spotify'
 import logo from '../../static/logo.svg'
 import cake from '../../static/cake.svg'
 
+import AlbumMatrix from '../AlbumMatrix'
+
 export default class Index extends React.Component {
 
   render() {
@@ -17,9 +19,11 @@ export default class Index extends React.Component {
         zIndex: -1
       },
       prompt: {
+        position: 'absolute',
         width: '50%',
-        marginTop: '200px',
-        marginLeft: '100px'
+        left: '100px',
+        top: '300px',
+        boxSizing: 'border-box'
       },
       button: {
         display: 'block',
@@ -45,6 +49,12 @@ export default class Index extends React.Component {
         color: '#000',
         fontSize: '14px',
         lineHeight: '50px'
+      },
+      albumMatrix: {
+        position: 'absolute',
+        right: '100px',
+        top: '200px',
+        width: 'calc(50% - 200px)'
       }
     }
 
@@ -56,8 +66,7 @@ export default class Index extends React.Component {
           <div style={styles.desc}>This app is used to see albums/singles that have hit their anniversary date.</div>
           <Link style={styles.button} to="/auth">Login to Spotify</Link>
         </div>
-        <div style={styles.albumMatrix}>
-        </div>
+        <AlbumMatrix style={styles.albumMatrix} />
       </div>
     )
   }
