@@ -5,13 +5,18 @@ import Spotify from '../api/spotify'
 
 const app = express()
 
-app.all('/*', function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-  res.header("Access-Control-Allow-Headers", "X-Requested-With");
-  next();
-});
+app.all('/*', (req, res, next) => {
+  const allowedOrigins = ['http://localhost:3000', 'http://musicanniversary.com']
+  const origin = req.headers.origin
 
-app.get('/getAuth', (req, res) => {
+  if (allowedOrigins.indexOf(origin) > -1) {
+    res.header('Access-Control-Allow-Origin', origin);
+  }
+  res.header("Access-Control-Allow-Headers", "X-Requested-With")
+  next()
+})
+
+app.get('/api/getAuth', (req, res) => {
 
   res.setHeader('Content-Type', 'application/json')
 
@@ -28,7 +33,7 @@ app.get('/getAuth', (req, res) => {
       res.send(JSON.stringify({ access_token: data.body['access_token'] }))
 
     }, err => {
-      console.log('Something went wrong!', err)  
+      console.log('Something went wrong!', err)
       res.send(JSON.stringify({ error: err }))
     })
 })

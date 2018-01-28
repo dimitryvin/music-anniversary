@@ -7,7 +7,7 @@ const Auth = props => {
     if (accessToken && !Number.isNaN(expiration) && accessToken !== "undefined" && expiration > (Date.now() / 1000)) {
       window.location = '/anniversaries'
     } else {
-      fetch('http://localhost:3001/getAuth?code=' + props.location.search.split('&')[0].replace('?code=', ''))
+      fetch(process.env.REACT_APP_API_URL + '/api/getAuth?code=' + props.location.search.split('&')[0].replace('?code=', ''))
         .then(res => res.json())
         .catch(error => console.error('Error:', error))
         .then(res => {
