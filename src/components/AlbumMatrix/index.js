@@ -13,13 +13,15 @@ export default class AlbumMatrix extends React.Component {
   generateMatrix() {
     let style = {
       display: 'inline-block',
-      width: 'calc(33% - 3px)',
+      width: 'calc(25% - 3px)',
       marginRight: '3px'
     }
 
+    const gridSize = 16
     let usedImages = {}
     let grid = []
-    for (let i = 0; i < 9; i++) {
+
+    for (let i = 0; i < gridSize; i++) {
       let index = parseInt((Math.random() * 10000 % 19) + 1)
       
       if (usedImages[index]) {

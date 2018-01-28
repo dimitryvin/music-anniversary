@@ -38,7 +38,7 @@ export default class Image extends React.Component {
   }
 
   componentDidMount() {
-    this.loadImage()
+    setTimeout(this.loadImage.bind(this), 500)
 
     this.mounted = true // not the best approach
   }

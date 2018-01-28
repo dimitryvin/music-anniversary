@@ -11,6 +11,13 @@ export default class Index extends React.Component {
 
   render() {
     const styles = {
+      container: {
+        height: '100%',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        margin: '0 20px'
+      },
       backgroundImage: {
         position: 'absolute',
         top: '-60%',
@@ -19,11 +26,7 @@ export default class Index extends React.Component {
         zIndex: -1
       },
       prompt: {
-        position: 'absolute',
-        width: '50%',
-        left: '100px',
-        top: '300px',
-        boxSizing: 'border-box'
+        width: '50%'
       },
       button: {
         display: 'block',
@@ -43,28 +46,25 @@ export default class Index extends React.Component {
         color: '#000',
         fontWeight: 'bold',
         fontSize: '60px',
-        lineHeight: '45px'
+        lineHeight: '54px'
       },
       desc: {
         color: '#000',
-        fontSize: '14px',
-        lineHeight: '50px'
+        fontSize: '18px',
+        lineHeight: '80px'
       },
       albumMatrix: {
-        position: 'absolute',
-        right: '100px',
-        top: '200px',
-        width: 'calc(50% - 200px)'
+        width: '50%'
       }
     }
 
     return (
-      <div>
+      <div style={styles.container}>
         <img style={styles.backgroundImage} src={cake} />
         <div style={styles.prompt}>
           <div style={styles.header}>Welcome to Music Anniversary!</div>
-          <div style={styles.desc}>See the upcoming anniversary date for music that you listen to on Spotify.</div>
-          <Link style={styles.button} to="/auth">Login to Spotify</Link>
+          <div style={styles.desc}>See the upcoming anniversary dates for music that you listen to on Spotify.</div>
+          <Link style={{ ...styles.button, marginTop: '10px' }} to="/auth">Login to Spotify</Link>
         </div>
         <AlbumMatrix style={styles.albumMatrix} />
       </div>
