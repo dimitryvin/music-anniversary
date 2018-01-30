@@ -177,28 +177,30 @@ class Anniversaries extends React.Component {
         }
       },
       header: {
-        fontSize: '60px',
+        fontSize: '48px',
         fontWeight: 600,
         textAlign: 'center',
-        margin: '40px 0',
+        margin: '20px 60px 40px 60px',
+        borderBottom: '1px solid #ddd',
+        lineHeight: '80px',
         [mediaQuery]: {
           fontSize: '32px',
           margin: '30px 38px 15px 38px',
           textAlign: 'left',
-          borderBottom: '1px solid #ddd',
           lineHeight: '60px'
         }
       },
       endMessage: {
-        fontSize: '30px',
-        fontWeight: 400,
+        fontSize: '36px',
+        fontWeight: 600,
         textAlign: 'center',
-        margin: '40px 0',
+        borderBottom: '1px solid #ddd',
+        margin: '40px 60px',
+        lineHeight: '70px',
         [mediaQuery]: {
           fontSize: '26px',
           textAlign: 'left',
           margin: '10px 37px 16px 37px',
-          borderBottom: '1px solid #ddd',
           lineHeight: '50px'
         }
       },
@@ -243,19 +245,19 @@ class Anniversaries extends React.Component {
           <div style={styles.albumsContainer}>
             {albumsTommorrow.length > 0 ? albumsTommorrow.map(album => <Album key={album.id} album={album} />) : <span style={styles.message}>No Anniversaries tomorrow.</span>}
           </div>
-          <div style={styles.endMessage}>...come again tomorrow!</div>
+          <div style={styles.endMessage}>...come back later!</div>
         </div>
       )
 
       return (
         <div style={styles.container}>
-          <div style={styles.header}>Anniversaries today!</div>
+          <div style={styles.header}>Today</div>
           <div style={styles.anniversariesContainer}>
             <div style={styles.albumsContainer}>
-              {albumsToday.length > 0 ? albumsToday.map(album => <Album key={album.id} album={album} />) : <span style={styles.message}>No Anniversaries today!</span>}
+              {albumsToday.length > 0 ? albumsToday.map(album => <Album key={album.id} album={album} />) : <span style={styles.message}>None today!</span>}
             </div>
           </div>
-          <div key="tomorrow-anniversary" onClick={this.showTomorrowsAnniversaries.bind(this)} style={this.state.showTomorrow ? styles.endMessage : styles.endMessageClickable}>{!this.state.showTomorrow ? 'See tomorrow\'s anniversaries...' : 'Tomorrow\'s anniversaries!' }</div>
+          <div key="tomorrow-anniversary" onClick={this.showTomorrowsAnniversaries.bind(this)} style={this.state.showTomorrow ? styles.endMessage : styles.endMessageClickable}>{!this.state.showTomorrow ? 'See tomorrow\'s anniversaries...' : 'Tomorrow\'s anniversaries' }</div>
           {tomorrowsAnniversaries}
         </div>
       )

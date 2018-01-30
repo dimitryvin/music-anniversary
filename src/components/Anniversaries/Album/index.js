@@ -23,22 +23,17 @@ class Album extends React.Component {
     const styles = {
       container: {
         position: 'relative',
-        textAlign: 'center',
         margin: '20px',
         width: '300px',
-        [mediaQuery]: {
-          textAlign: 'left',
-          borderRadius: '20px',
-          backgroundColor: '#fff',
-          boxShadow: '0px 0px 30px -7px rgba(65,64,66,0.5)',
-          border: '1px solid #efefef'
-        }
+        textAlign: 'left',
+        borderRadius: '20px',
+        backgroundColor: '#fff',
+        boxShadow: '0px 0px 30px -7px rgba(65,64,66,0.5)',
+        border: '1px solid #efefef'
       },
       albumPlaceholder: {
-        [mediaQuery]: {
-          borderTopLeftRadius: '20px',
-          borderTopRightRadius: '20px'
-        }
+        borderTopLeftRadius: '20px',
+        borderTopRightRadius: '20px'
       },
       image: {
         position: 'absolute',
@@ -48,12 +43,8 @@ class Album extends React.Component {
         minWidth: '300px',
         minHeight: '300px',
         width: '100%',
-        boxShadow: '0px 0px 30px -7px rgba(65,64,66,0.5)',
-        [mediaQuery]: {
-          boxShadow: 'none',
-          borderTopLeftRadius: '20px',
-          borderTopRightRadius: '20px'
-        }
+        borderTopLeftRadius: '20px',
+        borderTopRightRadius: '20px'
       },
       albumTitle: {
         fontWeight: 700,
@@ -61,41 +52,28 @@ class Album extends React.Component {
         overflow: 'hidden',
         textOverflow: 'ellipsis',
         width: '100%',
-        margin: '10px 0 5px 0',
-        whiteSpace: 'nowrap',
-        [mediaQuery]: {
-          marginTop: 0,
-          marginBottom: '8px'
-        }
+        marginBottom: '10px',
+        whiteSpace: 'nowrap'
       },
       albumArtists: {
-        fontWeight: 400,
-        fontSize: '14px',
+        fontWeight: 600,
+        fontSize: '16px',
         overflow: 'hidden',
         textOverflow: 'ellipsis',
         width: '100%',
-        marginBottom: '10px',
+        marginBottom: '3px',
         whiteSpace: 'nowrap',
-        [mediaQuery]: {
-          color: '#545454',
-          marginBottom: '5px',
-          fontWeight: 600,
-          fontSize: '16px'
-        }
+        color: '#545454'
       },
       albumAge: {
-        fontSize: '16px',
-        opacity: 0.8,
-        [mediaQuery]: {
-          opacity: 1,
-          display: 'inline-block',
-          textTransform: 'uppercase',
-          color: '#1db954',
-          border: '1px solid #1db954',
-          fontSize: '10px',
-          padding: '5px',
-          borderRadius: '4px'
-        }
+        opacity: 1,
+        display: 'inline-block',
+        textTransform: 'uppercase',
+        color: '#1db954',
+        border: '1px solid #1db954',
+        fontSize: '10px',
+        padding: '5px',
+        borderRadius: '4px'
       },
       albumType: {
         position: 'absolute',
@@ -122,15 +100,13 @@ class Album extends React.Component {
         backgroundColor: 'rgba(0, 0, 0, 0.6)',
         transition: 'opacity 0.3s ease',
         opacity: 0,
+        borderTopLeftRadius: '20px',
+        borderTopRightRadius: '20px',
         ':hover': {
           opacity: 1
         },
         ':active': {
           opacity: 1
-        },
-        [mediaQuery]: {
-          borderTopLeftRadius: '20px',
-          borderTopRightRadius: '20px'
         }
       },
       playButton: {

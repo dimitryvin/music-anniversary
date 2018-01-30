@@ -12,7 +12,7 @@ const RLink = Radium(Link)
 class Index extends React.Component {
 
   render() {
-    const mediaQuery = '@media (max-width: 450px)'
+    const mediaQuery = '@media (max-width: 800px)'
     const styles = {
       container: {
         height: '100%',
@@ -40,11 +40,13 @@ class Index extends React.Component {
       },
       prompt: {
         width: '50%',
+        paddingRight: '20px',
         [mediaQuery]: {
           width: '100%',
           marginTop: '30px',
           textAlign: 'center',
           display: 'flex',
+          padding: 0,
           flexDirection: 'column',
           alignItems: 'center'
         }
@@ -62,6 +64,13 @@ class Index extends React.Component {
         backgroundColor: '#1db954',
         cursor: 'pointer',
         textDecoration: 'none',
+        transition: 'background-color 0.3s ease',
+        ':hover': {
+          backgroundColor: '#41cc71'
+        },
+        ':active': {
+          backgroundColor: '#18a349'
+        },
         [mediaQuery]: {
           marginTop: '20px'
         }
@@ -79,7 +88,7 @@ class Index extends React.Component {
       desc: {
         color: '#000',
         fontSize: '18px',
-        lineHeight: '80px',
+        margin: '20px 0 25px 0',
         [mediaQuery]: {
           fontSize: '16px',
           lineHeight: '20px',
