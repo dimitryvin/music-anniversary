@@ -14,7 +14,8 @@ export default class AlbumMatrix extends React.Component {
     let style = {
       display: 'inline-block',
       width: 'calc(25% - 3px)',
-      marginRight: '3px'
+      marginRight: '3px',
+      height: '25%'
     }
 
     const gridSize = 16
