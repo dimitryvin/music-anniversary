@@ -1,9 +1,12 @@
 import React from 'react'
+import ReactDOM from 'react-dom'
+import animateScrollTo from 'animated-scroll-to'
+import Radium from 'radium'
 
 import Spotify from '../../api/spotify'
 import Album from './Album'
 
-export default class Anniversaries extends React.Component {
+class Anniversaries extends React.Component {
 
   constructor(props) {
     super(props)
@@ -11,7 +14,8 @@ export default class Anniversaries extends React.Component {
     this.state = {
       albums: [],
       loaded: false,
-      statusMessage: 'Retrieving your music.'
+      statusMessage: 'Retrieving your music.',
+      showTomorrow: false
     }
   }
 
@@ -127,6 +131,18 @@ export default class Anniversaries extends React.Component {
     return this.albumsGroupedBy(['month', 'day'])[`month:${month}day:${day}`] || []
   }
 
+  anniversariesTomorrow() {
+    let date = new Date()
+    date.setDate(date.getDate() + 1)
+    let day = date.getDate() // 1-31
+    let month = date.getMonth() + 1 // 1-12
+
+    if (day < 10) day = '0' + day
+    if (month < 10) month = '0' + month
+
+    return this.albumsGroupedBy(['month', 'day'])[`month:${month}day:${day}`] || []
+  }
+
   anniversariesThisMonth() {
     let date = new Date()
     let month = date.getMonth() + 1 // 1-12
@@ -134,6 +150,14 @@ export default class Anniversaries extends React.Component {
     if (month < 10) month = '0' + month
 
     return this.albumsGroupedBy(['month'])[`month:${month}`] || []
+  }
+
+  showTomorrowsAnniversaries() {
+    this.setState({
+      showTomorrow: true
+    }, () => {
+      animateScrollTo(ReactDOM.findDOMNode(this.tomorrowsContainer).offsetTop)
+    })
   }
 
   render() {
@@ -152,10 +176,26 @@ export default class Anniversaries extends React.Component {
         fontSize: '60px',
         fontWeight: 600,
         textAlign: 'center',
-        marginBottom: '40px',
-        marginTop: '40px'
+        margin: '40px 0'
+      },
+      endMessage: {
+        fontSize: '30px',
+        fontWeight: 400,
+        textAlign: 'center',
+        margin: '40px 0'
+      },
+      endMessageClickable: {
+        fontSize: '30px',
+        fontWeight: 400,
+        textAlign: 'center',
+        margin: '40px 0',
+        cursor: 'pointer',
+        ':hover': {
+          textDecoration: 'underline'
+        }
       },
       anniversariesContainer: {
+        display: 'flex-item',
         position: 'relative',
         width: '100%'
       },
@@ -169,16 +209,28 @@ export default class Anniversaries extends React.Component {
     }
 
     if (this.state.loaded) {
-      let albums = this.anniversariesToday()
+      let albumsToday = this.anniversariesToday()
+      let albumsTommorrow = this.anniversariesTomorrow()
+
+      const tomorrowsAnniversaries = this.state.showTomorrow && (
+        <div ref={ el => this.tomorrowsContainer = el } style={styles.anniversariesContainer}>
+          <div style={styles.albumsContainer}>
+            {albumsTommorrow.length > 0 ? albumsTommorrow.map(album => <Album key={album.id} album={album} />) : <span style={styles.message}>No Anniversaries tomorrow.</span>}
+          </div>
+          <div style={styles.endMessage}>...come again tomorrow!</div>
+        </div>
+      )
 
       return (
         <div style={styles.container}>
           <div style={styles.header}>Anniversaries today!</div>
           <div style={styles.anniversariesContainer}>
             <div style={styles.albumsContainer}>
-              {albums.length > 0 ? albums.map(album => <Album key={album.id} album={album} />) : <span style={styles.message}>No Anniversaries today!</span>}
+              {albumsToday.length > 0 ? albumsToday.map(album => <Album key={album.id} album={album} />) : <span style={styles.message}>No Anniversaries today!</span>}
             </div>
           </div>
+          <div key="tomorrow-anniversary" onClick={this.showTomorrowsAnniversaries.bind(this)} style={this.state.showTomorrow ? styles.endMessage : styles.endMessageClickable}>{!this.state.showTomorrow ? 'Click here to check tomorrows anniversaries...' : 'Tomorrow\'s anniversaries!' }</div>
+          {tomorrowsAnniversaries}
         </div>
       )
     } else {
@@ -193,3 +245,5 @@ export default class Anniversaries extends React.Component {
     }
   }
 }
+
+export default Radium(Anniversaries)

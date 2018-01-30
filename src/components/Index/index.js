@@ -22,13 +22,14 @@ export default class Index extends React.Component {
         position: 'absolute',
         top: '-20%',
         left: '-20%',
-        width: '50%',
+        width: '60%',
         display: 'block',
         opacity: 0.2,
-        zIndex: -1
+        zIndex: 0
       },
       prompt: {
-        width: '50%'
+        width: '50%',
+        zIndex: 1
       },
       button: {
         display: 'block',

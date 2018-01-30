@@ -52,7 +52,6 @@ export default class Image extends React.Component {
     let rootClassName = classNames(className, 'image', {
       'image-loaded': this.state.loaded
     })
-    console.log(this.state.loaded)
 
     return <img ref={ img => this.img = img } { ...props } src={ !this.state.loaded ? (this.prevImage || this.props.src) : this.props.src } className = { rootClassName } />
   }

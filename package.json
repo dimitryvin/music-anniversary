@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "http://musicanniversary.com",
   "dependencies": {
+    "animated-scroll-to": "^1.1.8",
     "babel-cli": "^6.26.0",
     "classnames": "^2.2.5",
     "express": "^4.16.2",
