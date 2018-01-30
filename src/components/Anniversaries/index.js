@@ -238,12 +238,12 @@ class Anniversaries extends React.Component {
 
     if (this.state.loaded) {
       let albumsToday = this.anniversariesToday()
-      let albumsTommorrow = this.anniversariesTomorrow()
+      let albumsTomorrow = this.anniversariesTomorrow()
 
       const tomorrowsAnniversaries = this.state.showTomorrow && (
         <div ref={ el => this.tomorrowsContainer = el } style={styles.anniversariesContainer}>
           <div style={styles.albumsContainer}>
-            {albumsTommorrow.length > 0 ? albumsTommorrow.map(album => <Album key={album.id} album={album} />) : <span style={styles.message}>No Anniversaries tomorrow.</span>}
+            {albumsTomorrow.length > 0 ? albumsTomorrow.map(album => <Album key={album.id} album={album} />) : <span style={styles.message}>No Anniversaries tomorrow.</span>}
           </div>
           <div style={styles.endMessage}>...come back later!</div>
         </div>

@@ -41,6 +41,7 @@ class Index extends React.Component {
       prompt: {
         width: '50%',
         paddingRight: '20px',
+        zIndex: 1,
         [mediaQuery]: {
           width: '100%',
           marginTop: '30px',
