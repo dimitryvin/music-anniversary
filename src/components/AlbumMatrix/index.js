@@ -1,8 +1,9 @@
 import React from 'react'
+import Radium from 'radium'
 
 import Image from '../Image'
 
-export default class AlbumMatrix extends React.Component {
+class AlbumMatrix extends React.Component {
 
   componentDidMount() {
     setInterval(() => {
@@ -43,6 +44,6 @@ export default class AlbumMatrix extends React.Component {
       </div>
     )
   }
-
-
 }
+
+export default Radium(AlbumMatrix)

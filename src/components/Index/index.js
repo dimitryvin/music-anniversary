@@ -1,22 +1,30 @@
 import React from 'react'
+import Radium from 'radium'
 import { Link } from 'react-router-dom'
 
 import Spotify from '../../api/spotify'
-import logo from '../../static/logo.svg'
 import cake from '../../static/cake.svg'
 
 import AlbumMatrix from '../AlbumMatrix'
 
-export default class Index extends React.Component {
+const rLink = Radium(Link)
+
+class Index extends React.Component {
 
   render() {
+    const mediaQuery = '@media (max-width: 450px)'
     const styles = {
       container: {
         height: '100%',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        margin: '0 100px'
+        margin: '0 100px',
+        [mediaQuery]: {
+          flexDirection: 'column-reverse',
+          justifyContent: 'flex-end',
+          margin: 0
+        }
       },
       backgroundImage: {
         position: 'absolute',
@@ -25,11 +33,21 @@ export default class Index extends React.Component {
         width: '60%',
         display: 'block',
         opacity: 0.2,
-        zIndex: 0
+        zIndex: 0,
+        [mediaQuery]: {
+          display: 'none'
+        }
       },
       prompt: {
         width: '50%',
-        zIndex: 1
+        [mediaQuery]: {
+          width: '100%',
+          marginTop: '30px',
+          textAlign: 'center',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center'
+        }
       },
       button: {
         display: 'block',
@@ -43,21 +61,37 @@ export default class Index extends React.Component {
         fontWeight: 600,
         backgroundColor: '#1db954',
         cursor: 'pointer',
-        textDecoration: 'none'
+        textDecoration: 'none',
+        [mediaQuery]: {
+          marginTop: '20px'
+        }
       },
       header: {
         color: '#000',
         fontWeight: 'bold',
         fontSize: '60px',
-        lineHeight: '54px'
+        lineHeight: '54px',
+        [mediaQuery]: {
+          fontSize: '36px',
+          lineHeight: '36px'
+        }
       },
       desc: {
         color: '#000',
         fontSize: '18px',
-        lineHeight: '80px'
+        lineHeight: '80px',
+        [mediaQuery]: {
+          fontSize: '16px',
+          lineHeight: '20px',
+          margin: '10px 10px'
+        }
       },
       albumMatrix: {
-        width: '50%'
+        width: '50%',
+        [mediaQuery]: {
+          width: '100%',
+          zIndex: 0
+        }
       }
     }
 
@@ -67,11 +101,12 @@ export default class Index extends React.Component {
         <div style={styles.prompt}>
           <div style={styles.header}>Welcome to Music Anniversary!</div>
           <div style={styles.desc}>See the upcoming anniversary dates for music that you listen to on Spotify.</div>
-          <Link style={{ ...styles.button, marginTop: '10px' }} to="/auth">Login to Spotify</Link>
+          <rLink style={styles.button} to="/auth">Login to Spotify</rLink>
         </div>
         <AlbumMatrix style={styles.albumMatrix} />
       </div>
     )
   }
-
 }
+
+export default Radium(Index)
