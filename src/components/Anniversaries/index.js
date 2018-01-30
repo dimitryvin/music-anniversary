@@ -161,7 +161,7 @@ class Anniversaries extends React.Component {
   }
 
   render() {
-
+    const mediaQuery = '@media (max-width: 450px)'
     const styles = {
       container: {
         display: 'flex',
@@ -170,19 +170,37 @@ class Anniversaries extends React.Component {
       },
       message: {
         fontSize: '36px',
-        fontWeight: 400
+        fontWeight: 400,
+        [mediaQuery]: {
+          fontSize: '24px',
+          textAlign: 'center'
+        }
       },
       header: {
         fontSize: '60px',
         fontWeight: 600,
         textAlign: 'center',
-        margin: '40px 0'
+        margin: '40px 0',
+        [mediaQuery]: {
+          fontSize: '32px',
+          margin: '30px 38px 15px 38px',
+          textAlign: 'left',
+          borderBottom: '1px solid #ddd',
+          lineHeight: '60px'
+        }
       },
       endMessage: {
         fontSize: '30px',
         fontWeight: 400,
         textAlign: 'center',
-        margin: '40px 0'
+        margin: '40px 0',
+        [mediaQuery]: {
+          fontSize: '26px',
+          textAlign: 'left',
+          margin: '10px 37px 16px 37px',
+          borderBottom: '1px solid #ddd',
+          lineHeight: '50px'
+        }
       },
       endMessageClickable: {
         fontSize: '30px',
@@ -192,6 +210,14 @@ class Anniversaries extends React.Component {
         cursor: 'pointer',
         ':hover': {
           textDecoration: 'underline'
+        },
+        [mediaQuery]: {
+          border: '1px solid #ddd',
+          borderRadius: '20px',
+          fontSize: '16px',
+          margin: '20px 37px 40px 37px',
+          padding: '16px',
+          backgroundColor: '#fefefe'
         }
       },
       anniversariesContainer: {
@@ -229,7 +255,7 @@ class Anniversaries extends React.Component {
               {albumsToday.length > 0 ? albumsToday.map(album => <Album key={album.id} album={album} />) : <span style={styles.message}>No Anniversaries today!</span>}
             </div>
           </div>
-          <div key="tomorrow-anniversary" onClick={this.showTomorrowsAnniversaries.bind(this)} style={this.state.showTomorrow ? styles.endMessage : styles.endMessageClickable}>{!this.state.showTomorrow ? 'Click here to check tomorrows anniversaries...' : 'Tomorrow\'s anniversaries!' }</div>
+          <div key="tomorrow-anniversary" onClick={this.showTomorrowsAnniversaries.bind(this)} style={this.state.showTomorrow ? styles.endMessage : styles.endMessageClickable}>{!this.state.showTomorrow ? 'See tomorrow\'s anniversaries...' : 'Tomorrow\'s anniversaries!' }</div>
           {tomorrowsAnniversaries}
         </div>
       )

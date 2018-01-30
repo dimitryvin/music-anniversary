@@ -1,8 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import Radium from 'radium'
 import classNames from 'classnames'
 
-export default class Image extends React.Component {
+class Image extends React.Component {
 
   constructor(props) {
     super(props)
@@ -56,3 +57,5 @@ export default class Image extends React.Component {
     return <img ref={ img => this.img = img } { ...props } src={ !this.state.loaded ? (this.prevImage || this.props.src) : this.props.src } className = { rootClassName } />
   }
 }
+
+export default Radium(Image)

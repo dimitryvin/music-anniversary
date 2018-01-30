@@ -19,17 +19,26 @@ class Album extends React.Component {
     let releaseYear = parseInt(album.release_date.split('-')[0], 10)
     let age = year - releaseYear
 
+    const mediaQuery = '@media (max-width: 450px)'
     const styles = {
       container: {
         position: 'relative',
         textAlign: 'center',
         margin: '20px',
-        width: '300px'
+        width: '300px',
+        [mediaQuery]: {
+          textAlign: 'left',
+          borderRadius: '20px',
+          backgroundColor: '#fff',
+          boxShadow: '0px 0px 30px -7px rgba(65,64,66,0.5)',
+          border: '1px solid #efefef'
+        }
       },
       albumPlaceholder: {
-        position: 'absolute',
-        top: 0,
-        left: 0
+        [mediaQuery]: {
+          borderTopLeftRadius: '20px',
+          borderTopRightRadius: '20px'
+        }
       },
       image: {
         position: 'absolute',
@@ -39,16 +48,25 @@ class Album extends React.Component {
         minWidth: '300px',
         minHeight: '300px',
         width: '100%',
-        boxShadow: '0px 0px 30px -7px rgba(65,64,66,0.5)'
+        boxShadow: '0px 0px 30px -7px rgba(65,64,66,0.5)',
+        [mediaQuery]: {
+          boxShadow: 'none',
+          borderTopLeftRadius: '20px',
+          borderTopRightRadius: '20px'
+        }
       },
       albumTitle: {
-        fontWeight: 600,
+        fontWeight: 700,
         fontSize: '20px',
         overflow: 'hidden',
         textOverflow: 'ellipsis',
         width: '100%',
         margin: '10px 0 5px 0',
-        whiteSpace: 'nowrap'
+        whiteSpace: 'nowrap',
+        [mediaQuery]: {
+          marginTop: 0,
+          marginBottom: '8px'
+        }
       },
       albumArtists: {
         fontWeight: 400,
@@ -57,11 +75,27 @@ class Album extends React.Component {
         textOverflow: 'ellipsis',
         width: '100%',
         marginBottom: '10px',
-        whiteSpace: 'nowrap'
+        whiteSpace: 'nowrap',
+        [mediaQuery]: {
+          color: '#545454',
+          marginBottom: '5px',
+          fontWeight: 600,
+          fontSize: '16px'
+        }
       },
       albumAge: {
         fontSize: '16px',
-        opacity: 0.8
+        opacity: 0.8,
+        [mediaQuery]: {
+          opacity: 1,
+          display: 'inline-block',
+          textTransform: 'uppercase',
+          color: '#1db954',
+          border: '1px solid #1db954',
+          fontSize: '10px',
+          padding: '5px',
+          borderRadius: '4px'
+        }
       },
       albumType: {
         position: 'absolute',
@@ -77,7 +111,7 @@ class Album extends React.Component {
       },
       playContainer: {
         position: 'absolute',
-        top: 0, 
+        top: 0,
         left: 0,
         width: '300px',
         height: '300px',
@@ -90,24 +124,37 @@ class Album extends React.Component {
         opacity: 0,
         ':hover': {
           opacity: 1
+        },
+        ':active': {
+          opacity: 1
+        },
+        [mediaQuery]: {
+          borderTopLeftRadius: '20px',
+          borderTopRightRadius: '20px'
         }
       },
       playButton: {
         width: '50%',
         marginTop: '30px'
+      },
+      metadataContainer: {
+        padding: '12px 12px 15px 12px',
+        marginTop: '-6px'
       }
     }
 
     return (
       <div key={album.id} style={styles.container}>
-        <img src={albumPlaceholder} styles={styles.albumPlaceholder} />
+        <img src={albumPlaceholder} style={styles.albumPlaceholder} />
         <Image alt={album.name} key={album.id} src={album.images[1].url} style={styles.image} />
-        <div style={ styles.playContainer } onClick={ this.openSpotifyLink.bind(this) }>
+        <div style={styles.playContainer} onClick={this.openSpotifyLink.bind(this)}>
           <img src={playButton} style={styles.playButton} />
         </div>
-        <div style={styles.albumTitle}>{album.name}</div>
-        <div style={styles.albumArtists}>{album.artists.map(artist => artist.name).join(', ')}</div>
-        <div style={styles.albumAge}>{age} year{age > 1 ? 's' : ''} old</div>
+        <div style={styles.metadataContainer}>
+          <div style={styles.albumArtists}>{album.artists.map(artist => artist.name).join(', ')}</div>
+          <div style={styles.albumTitle}>{album.name}</div>
+          <div style={styles.albumAge}>{age} year{age > 1 ? 's' : ''} old</div>
+        </div>
         <div style={styles.albumType}>{album.album_type}</div>
       </div>
     )

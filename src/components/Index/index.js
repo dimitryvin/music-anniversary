@@ -7,7 +7,7 @@ import cake from '../../static/cake.svg'
 
 import AlbumMatrix from '../AlbumMatrix'
 
-const rLink = Radium(Link)
+const RLink = Radium(Link)
 
 class Index extends React.Component {
 
@@ -101,7 +101,7 @@ class Index extends React.Component {
         <div style={styles.prompt}>
           <div style={styles.header}>Welcome to Music Anniversary!</div>
           <div style={styles.desc}>See the upcoming anniversary dates for music that you listen to on Spotify.</div>
-          <rLink style={styles.button} to="/auth">Login to Spotify</rLink>
+          <RLink style={styles.button} to="/auth">Login to Spotify</RLink>
         </div>
         <AlbumMatrix style={styles.albumMatrix} />
       </div>

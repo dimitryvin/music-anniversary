@@ -27,10 +27,10 @@ class AlbumMatrix extends React.Component {
       let index = parseInt((Math.random() * 10000 % 19) + 1)
       
       if (usedImages[index]) {
-        grid.push(<div style={ style }></div>)
+        grid.push(<div key={i} style={ style }></div>)
       } else {
         usedImages[index] = true
-        grid.push(<Image style={ style } src={ `/album_art/${index}.jpeg` } />)
+        grid.push(<Image key={i} style={ style } src={ `/album_art/${index}.jpeg` } />)
       }
     }
 

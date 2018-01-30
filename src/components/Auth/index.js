@@ -1,4 +1,5 @@
 import React from 'react'
+import Radium from 'radium'
 
 class Auth extends React.Component {
 
@@ -26,6 +27,7 @@ class Auth extends React.Component {
   }
 
   render() {
+    const mediaQuery = '@media (max-width: 450px)'
     const styles = {
       container: {
         display: 'flex',
@@ -35,7 +37,11 @@ class Auth extends React.Component {
       },
       message: {
         fontWeight: 400,
-        fontSize: '36px'
+        fontSize: '36px',
+        [mediaQuery]: {
+          fontSize: '24px',
+          textAlign: 'center'
+        }
       }
     }
 
@@ -47,4 +53,4 @@ class Auth extends React.Component {
   }
 }
 
-export default Auth
+export default Radium(Auth)
