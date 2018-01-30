@@ -1,7 +1,7 @@
 import React from 'react'
 
 import Spotify from '../../api/spotify'
-import Image from '../Image'
+import Album from './Album'
 
 export default class Anniversaries extends React.Component {
 
@@ -9,11 +9,18 @@ export default class Anniversaries extends React.Component {
     super(props)
 
     this.state = {
-      albums: []
+      albums: [],
+      loaded: false,
+      statusMessage: 'Retrieving your music.'
     }
   }
 
   componentDidMount() {
+    // ui
+    this.loadingMessageInterval = setInterval(() => {
+      this.setState({ statusMessage: this.state.statusMessage + '.' })
+    }, 1000)
+
     let accessToken = localStorage.getItem('access_token')
     let expiration = parseInt(localStorage.getItem('access_token_expiration'), 10)
 
@@ -52,6 +59,8 @@ export default class Anniversaries extends React.Component {
                 return existing
               }, [])
 
+              this.setState({ statusMessage: 'Getting album release info.' })
+
               // spotify api only allows you to request 20 albums a at time, so we're creating a chunked array to iterate ver
               let chunkedAlbumIds = []
               const chunk = 20
@@ -62,13 +71,18 @@ export default class Anniversaries extends React.Component {
               Promise.all(chunkedAlbumIds.map(ids => Spotify.getAlbums(ids)))
                 .then(chunks => {
                   albums = chunks.reduce((detailedAlbums, chunk) => { return [...chunk.body.albums, ...detailedAlbums] }, [])
+
+                  // stop adding periods
+                  clearInterval(this.loadingMessageInterval)
+                  this.setState({ statusMessage: 'Finished getting your music.', loaded: true })
+
                   resolve(albums)
-                  console.log('Done!')
                 }).catch(error => {
                   reject(error)
                 })
             }
           }, err => {
+            this.setState({ statusMessage: 'There was a problem getting your music. Try again by refreshing the page.' })
             console.log('Something went wrong!', err)
           });
       }
@@ -123,36 +137,59 @@ export default class Anniversaries extends React.Component {
   }
 
   render() {
-    const albumsToday = this.anniversariesToday()
-    const albumsThisMonth = this.anniversariesThisMonth()
 
-    return (
-      <div>
-        <h1>Anniversaries Today</h1>
-        {
-          albumsToday.length > 0 ? albumsToday.map(album => <Album album={ album } />) : <div>No anniversaries today!</div>
-        }
-        <h1>Anniversaries this Month</h1>
-        {
-          albumsThisMonth.length > 0 ? albumsThisMonth.map(album => <Album album={ album } />) : <div>No anniversaries this month!</div>
-        }
-      </div>
-    )
+    const styles = {
+      container: {
+        display: 'flex',
+        width: '100%',
+        flexDirection: 'column'
+      },
+      message: {
+        fontSize: '36px',
+        fontWeight: 400
+      },
+      header: {
+        fontSize: '60px',
+        fontWeight: 600,
+        textAlign: 'center',
+        marginBottom: '40px',
+        marginTop: '40px'
+      },
+      anniversariesContainer: {
+        position: 'relative',
+        width: '100%'
+      },
+      albumsContainer: {
+        height: '100%',
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'center',
+        flexWrap: 'wrap'
+      }
+    }
+
+    if (this.state.loaded) {
+      let albums = this.anniversariesToday()
+
+      return (
+        <div style={styles.container}>
+          <div style={styles.header}>Anniversaries today!</div>
+          <div style={styles.anniversariesContainer}>
+            <div style={styles.albumsContainer}>
+              {albums.length > 0 ? albums.map(album => <Album key={album.id} album={album} />) : <span style={styles.message}>No Anniversaries today!</span>}
+            </div>
+          </div>
+        </div>
+      )
+    } else {
+      styles.container.justifyContent = 'center'
+      styles.container.alignItems = 'center'
+      styles.container.height = '100%'
+      return (
+        <div style={styles.container}>
+          <span style={styles.message}>{this.state.statusMessage}</span>
+        </div>
+      )
+    }
   }
-}
-
-const Album = props => {
-  let album = props.album
-
-  let date = new Date()
-  let year = date.getFullYear()
-  let releaseYear = parseInt(album.release_date.split('-')[0], 10)
-  let age = year - releaseYear
-
-  return (
-    <div key={album.id} style={{ display: 'inline-block' }}>
-      <Image alt={album.name} key={album.id} src={album.images[1].url} />
-      <div>{ age } year{ age > 1 ? 's' : '' } old</div>
-    </div>
-  )
 }
