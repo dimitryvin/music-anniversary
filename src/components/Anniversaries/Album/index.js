@@ -122,7 +122,7 @@ class Album extends React.Component {
     return (
       <div key={album.id} style={styles.container}>
         <img src={albumPlaceholder} style={styles.albumPlaceholder} />
-        <Image alt={album.name} key={album.id} src={album.images[1].url} style={styles.image} />
+        <Image alt={album.name} key={album.id} src={album.images[0].url} style={styles.image} />
         <div style={styles.playContainer} onClick={this.openSpotifyLink.bind(this)}>
           <img src={playButton} style={styles.playButton} />
         </div>
